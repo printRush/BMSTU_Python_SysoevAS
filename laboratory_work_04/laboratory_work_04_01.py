@@ -1,5 +1,6 @@
 from random import *
 
+
 n = int(input("Элементов в массиве(N<=30) N: "))
 
 if n > 30:
@@ -8,7 +9,6 @@ elif n < 5:
     n = 5
 
 arr = [uniform(-5, 5) for i in range(n)]
-
 print(arr)
 
 # min
@@ -16,7 +16,6 @@ print("\nМинимальный элемент: ", min(arr), '\n')
 
 # sum of numbers
 sum_of_pos_nums = 0
-
 first_positive_index = 0
 
 for i in range(len(arr)):
@@ -45,4 +44,3 @@ others = [x for x in arr if x != 0]
 result = zeros + others
 
 print('\nОтсортированный массив: ', result)
-

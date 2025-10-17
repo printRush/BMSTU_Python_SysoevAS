@@ -4,114 +4,96 @@ import numpy as np
 with open('input6.txt', 'r') as f:
     rows, cols = map(int, f.read().split(', '))
 
-def MakeMatr(rows, cols, a, b):
-    Matr = (b - a) * np.random.random(size=(rows, cols)) + a
-    return Matr
+
+def make_matrix(rows, cols, a, b):
+    matrix = (b - a) * np.random.random(size=(rows, cols)) + a
+    return matrix
 
 
-def SumRowsWithNegative(Matr):
-    (nRow, nCol) = Matr.shape
+def sum_rows_with_negative(matrix):
+    (n_row, n_col) = matrix.shape
     result = []
 
-    for Row in range(nRow):
+    for row in range(n_row):
         has_negative = False
-        for Col in range(nCol):
-            if Matr[Row][Col] < 0:
+        for col in range(n_col):
+            if matrix[row][col] < 0:
                 has_negative = True
                 break
 
         if has_negative:
-            row_sum = np.sum(Matr[Row])
-            result.append((Row, row_sum))
+            row_sum = np.sum(matrix[row])
+            result.append((row, row_sum))
 
     return result
 
 
-def FindSaddlePoints(Matr):
-    (nRow, nCol) = Matr.shape
+def find_saddle_points(matrix):
+    (n_row, n_col) = matrix.shape
     saddle_points = []
 
-    for i in range(nRow):
-        for j in range(nCol):
+    for i in range(n_row):
+        for j in range(n_col):
             is_min_in_row = True
-            for k in range(nCol):
-                if Matr[i][k] < Matr[i][j]:
+            for k in range(n_col):
+                if matrix[i][k] < matrix[i][j]:
                     is_min_in_row = False
                     break
 
             is_max_in_col = True
-            for k in range(nRow):
-                if Matr[k][j] > Matr[i][j]:
+            for k in range(n_row):
+                if matrix[k][j] > matrix[i][j]:
                     is_max_in_col = False
                     break
 
             if is_min_in_row and is_max_in_col:
-                saddle_points.append((i, j, Matr[i][j]))
+                saddle_points.append((i, j, matrix[i][j]))
 
     return saddle_points
 
 
-def PrintMatr(Matr):
-    (nRow, nCol) = Matr.shape
-    M = []
-    for Row in range(nRow):
-        for Col in range(nCol):
-            M.append("{0:.3f}".format(Matr[Row][Col]))
-        M.append("|")
-    return M
+def print_matrix(matrix):
+    (n_row, n_col) = matrix.shape
+    for row in range(n_row):
+        for col in range(n_col):
+            print("{0: 8.3f}".format(matrix[row][col]), end=" ")
+        print()
+    print()
 
 
-def MidlDisp(Matr):
+def midl_disp(matrix):
     total_sum = 0.0
-    (nRow, nCol) = Matr.shape
+    (n_row, n_col) = matrix.shape
 
-    for Row in range(nRow):
-        for Col in range(nCol):
-            total_sum += Matr[Row][Col]
+    for row in range(n_row):
+        for col in range(n_col):
+            total_sum += matrix[row][col]
 
-    Midl = total_sum / Matr.size
+    midl = total_sum / matrix.size
 
-    Disp = 0.0
-    for Row in range(nRow):
-        for Col in range(nCol):
-            Disp += (Matr[Row][Col] - Midl) ** 2
+    disp = 0.0
+    for row in range(n_row):
+        for col in range(n_col):
+            disp += (matrix[row][col] - midl) ** 2
 
-    return (Midl, Disp / (Matr.size - 1))
+    return midl, disp / (matrix.size - 1)
 
 
-
-MyMatr = MakeMatr(rows, cols, -5.0, 5.0)
+my_matrix = make_matrix(rows, cols, -5.0, 5.0)
 
 
 # Статистика
-mMidl, mDisp = MidlDisp(MyMatr)
+m_midl, m_disp = midl_disp(my_matrix)
 
-# 1. Сумма строк с отрицательными элементами
-negative_rows = SumRowsWithNegative(MyMatr)
+negative_rows = sum_rows_with_negative(my_matrix)
 
-# if negative_rows:
-#     for row_num, row_sum in negative_rows:
-#         print(f"   Строка {row_num}: сумма = {row_sum:8.3f}")
-# else:
-#     print("   В матрице нет строк с отрицательными элементами")
-
-# 2. Седловые точки
-# print("\n2. Поиск седловых точек:")
-saddle_points = FindSaddlePoints(MyMatr)
-
-# if saddle_points:
-#     print("   Найдены седловые точки:")
-#     for row, col, value in saddle_points:
-#         print(f"   Строка {row}, Столбец {col}: значение = {value:8.3f}")
-# else:
-#     print("   Седловые точки не найдены")
-
+saddle_points = find_saddle_points(my_matrix)
 
 
 with open('output6.txt', 'w+') as f:
-    f.write(f'Исходная матрица: \n{PrintMatr(MyMatr)}\n'
-                 f'Среднее = {mMidl:7.3f}\n'
-            f'Дисперсия = {mDisp:7.3f}\n'
+    f.write(f'Исходная матрица: \n{print_matrix(my_matrix)}\n'
+                 f'Среднее = {m_midl:7.3f}\n'
+            f'Дисперсия = {m_disp:7.3f}\n'
             f'1. Суммы элементов в строках с отрицательными элементами:\n')
     if negative_rows:
         for row_num, row_sum in negative_rows:
@@ -125,8 +107,6 @@ with open('output6.txt', 'w+') as f:
             f.write(f"Строка {row}, Столбец {col}: значение = {value:8.3f}\n\n")
     else:
         f.write("Седловые точки не найдены\n\n")
-
-
 
 
 print("Done!")

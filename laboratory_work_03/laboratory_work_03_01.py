@@ -1,5 +1,6 @@
 from math import *
 
+
 print('Введите Xbeg, Xend и Dx')
 
 xb = float(input('Xbeg='))

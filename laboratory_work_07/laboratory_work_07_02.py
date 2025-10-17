@@ -12,20 +12,19 @@ def fun2_2(x, y):
             flag = 1
         else:
             flag = 0
-            return flag
+        return flag
 
 
-aX = [-10, 10]
-aY = [-10, 10]
-Dx = 300
-Dy = Dx / ((aX[1] - aX[0]) / (aY[1] - aY[0]))
-tr.setup(Dx, Dy, 200, 200)
+a_x = [-10, 10]
+a_y = [-10, 10]
+dx = 300
+dy = dx / ((a_x[1] - a_x[0]) / (a_y[1] - a_y[0]))
+tr.setup(dx, dy, 200, 200)
 tr.reset()
 
-Nmax = 10000
+n_max = 10000
 
-
-tr.setworldcoordinates(aX[0], aY[0], aX[1], aY[1])
+tr.setworldcoordinates(a_x[0], a_y[0], a_x[1], a_y[1])
 
 tr.title("Lab_7_work_02")
 tr.width(2)
@@ -34,84 +33,93 @@ tr.tracer(0, 0)
 
 
 tr.up()
-mfun = 0
+m_fun = 0
 
-for n in range(Nmax):
-    x = uniform(aX[0], aX[1])
-    y = uniform(aY[0], aY[1])
+for n in range(n_max):
+    x = uniform(a_x[0], a_x[1])
+    y = uniform(a_y[0], a_y[1])
     tr.goto(x, y)
     if fun2_2(x, y) != 0:  # попала
         tr.dot(3, "green")
-    mfun += 1
-tr.color("blue", "blue")
+    m_fun += 1
 
+tr.color("blue", "blue")
 
 # Ось X
 tr.up()
-tr.goto(aX[0], 0)
+tr.goto(a_x[0], 0)
 tr.down()
-tr.goto(aX[1], 0)
+tr.goto(a_x[1], 0)
+
 # Ось Y
 tr.up()
-tr.goto(0, aY[1])
+tr.goto(0, a_y[1])
 tr.down()
-tr.goto(0, aY[0])
-
+tr.goto(0, a_y[0])
 
 tr.up()
-for x in range(aX[0], aX[1]):
+
+
+for x in range(a_x[0], a_x[1]):
     tr.goto(x, 0.1)
-tr.down()
-tr.goto(x, 0)
-tr.up()
-tr.sety(-0.4)
-coords = str(x)
-tr.write(coords)
+    tr.down()
+    tr.goto(x, 0)
+    tr.up()
+    tr.sety(-0.4)
+    coords = str(x)
+    tr.write(coords)
 
 
-for y in range(aY[0], aY[1]):
+for y in range(a_y[0], a_y[1]):
     tr.goto(0, y)
-tr.down()
-tr.goto(0.1, y)
-tr.up()
-tr.setx(0.2)
-coords = str(y)
-tr.write(coords)
+    tr.down()
+    tr.goto(0.1, y)
+    tr.up()
+    tr.setx(0.2)
+    coords = str(y)
+    tr.write(coords)
+
 
 poli = [0, 0.1, 0, -0.1, 0]
-Arrbeg = int(aX[1])
-Xpoli = [Arrbeg, Arrbeg - 0.1, Arrbeg + 0.3,
-         Arrbeg - 0.1, Arrbeg]
-tr.goto(Xpoli[0], poli[0])
+arr_beg = int(a_x[1])
+x_poli = [arr_beg, arr_beg - 0.1, arr_beg + 0.3,
+          arr_beg - 0.1, arr_beg]
+tr.goto(x_poli[0], poli[0])
 tr.begin_fill()
 tr.down()
+
 for i in range(1, 5):
-    tr.goto(Xpoli[i], poli[i])
+    tr.goto(x_poli[i], poli[i])
+
 tr.end_fill()
 
 tr.up()
-tr.goto(Arrbeg, -0.7)
+tr.goto(arr_beg, -0.7)
 tr.write("X", font=("Arial", 14, "bold"))
 
+arr_beg = int(a_y[1])
+y_poli = [arr_beg, arr_beg - 0.1, arr_beg + 0.3,
+          arr_beg - 0.1, arr_beg]
 
-Arrbeg = int(aY[1])
-Ypoli = [Arrbeg, Arrbeg - 0.1, Arrbeg + 0.3,
-         Arrbeg - 0.1, Arrbeg]
 tr.up()
-tr.goto(poli[0], Ypoli[0])
+tr.goto(poli[0], y_poli[0])
 tr.begin_fill()
 tr.down()
+
+
 for i in range(1, 5):
-    tr.goto(poli[i], Ypoli[i])
+    tr.goto(poli[i], y_poli[i])
 tr.end_fill()
 
 tr.up()
-tr.goto(0.2, Arrbeg)
+tr.goto(0.2, arr_beg)
 tr.write("Y", font=("Arial", 14, "bold"))
-Sf = (aX[1] - aX[0]) * (aY[1] - aY[0]) * mfun / Nmax
+sf = (a_x[1] - a_x[0]) * (a_y[1] - a_y[0]) * m_fun / n_max
 tr.goto(1, 9)
 fstr = "N = {0:8d}\nNf = {1:8d}\nSf = {2:8.2f}"
-meseg = fstr.format(Nmax, mfun, Sf)
-tr.write(meseg, font=("Arial", 12, "bold"))
-print(meseg)
+messeg = fstr.format(n_max, m_fun, sf)
+tr.write(messeg, font=("Arial", 12, "bold"))
+
+print(messeg)
+
 tr.done()

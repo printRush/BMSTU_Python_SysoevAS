@@ -7,7 +7,6 @@ flag = False
 if X >= 0 and Y >= 0:
     if X**2 + Y**2 <= R**2:
         flag = True
-
 elif X <= 0 and Y <= 0:
     if Y >= -R - X:
         flag = True

@@ -1,13 +1,8 @@
-from math import *
-
-
 with open('input4.txt', 'r') as f:
     arr = list(map(float, f.read().split(', ')))
 
-
 # sum of numbers
 sum_of_pos_nums = 0
-
 first_positive_index = 0
 
 for i in range(len(arr)):
@@ -24,13 +19,10 @@ for j in range(len(arr)):
 for k in range(first_positive_index + 1, last_positive_index):
     sum_of_pos_nums += arr[k]
 
-
-
 # sort 0 + others
 zeros = [x for x in arr if x == 0]
 others = [x for x in arr if x != 0]
 result = zeros + others
-
 
 
 with open('output4.txt', 'w+') as f:

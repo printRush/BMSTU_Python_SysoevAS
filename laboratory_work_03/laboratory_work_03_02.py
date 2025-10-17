@@ -1,7 +1,11 @@
 from random import *
+
+
 flag = 0
+
 print("   X     Y      Res")
 print("-------------------")
+
 for n in range(10):
     x = uniform(-1, 4)
     y = uniform(-1, 10)
@@ -12,7 +16,9 @@ for n in range(10):
         flag = 1
     else:
         flag = 0
+
     print("{0: 7.2f} {1: 7.2f}".format(x, y), end=" ")
+
     if flag:
         print("Yes")
     else:

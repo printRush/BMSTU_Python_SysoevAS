@@ -1,5 +1,6 @@
 import math
 
+
 print('Введите Xbeg, Xend, Dx и Eps')
 
 xb = float(input('Xbeg='))
@@ -33,6 +34,6 @@ while x <= xe:
 
             math_result = math.log(1 - x)
             print("|{:12.4f}|{:15.8f}{:15}|".format(x, math_result, n))
-
     x = x + dx
+
 print("+--------+--------+-----+")

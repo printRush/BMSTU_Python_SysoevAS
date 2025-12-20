@@ -18,6 +18,7 @@ class Lexer:
         self.lexer.add('SUB', r'\-')
         # Числа
         self.lexer.add('NUMBER', r'\d+')
+        self.lexer.add('STRING', r'\'\^.*\^\'')
         # Игнорируем пробелы
         self.lexer.ignore('\s+')
 

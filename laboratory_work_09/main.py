@@ -11,7 +11,6 @@ tokens = lexer.lex(text_input)
 
 for token in tokens:
     print(token)
-
 codegen = CodeGen()
 
 module = codegen.module

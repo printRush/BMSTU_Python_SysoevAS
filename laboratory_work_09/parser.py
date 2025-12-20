@@ -1,12 +1,12 @@
 from rply import ParserGenerator
-from ast import Number, Sum, Sub, Print
+from ast import Number, Sum, Sub, Print, String
 
 
 class Parser:
     def __init__(self, module, builder, printf):
         self.pg = ParserGenerator(
             [
-                'NUMBER', 'PRINT', 'OPEN_PAREN', 'CLOSE_PAREN', 'SEMI_COLON', 'SUM', 'SUB'
+                'NUMBER', 'PRINT', 'OPEN_PAREN', 'CLOSE_PAREN', 'SEMI_COLON', 'SUM', 'SUB', 'STRING'
             ]
         )
         self.module = module
@@ -27,7 +27,7 @@ class Parser:
 
         @self.pg.production('instructions : instruction')
         def instructions_single(p):
-            return [p[0]]  # Возвращаем список с одной инструкцией
+            return [p[0]]
 
         @self.pg.production('instructions : instruction instructions')
         def instructions_multiple(p):
@@ -51,6 +51,10 @@ class Parser:
         @self.pg.production('expression : NUMBER')
         def number(p):
             return Number(self.builder, self.module, p[0].value)
+
+        @self.pg.production('expression : STRING')
+        def string(p):
+            return String(self.builder, self.module, p[0].value)
 
         @self.pg.production('program : ')
         def empty_program(p):
